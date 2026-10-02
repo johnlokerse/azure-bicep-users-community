@@ -12,7 +12,8 @@ straight to the original LinkedIn post.
 
 - [Astro](https://astro.build) — static output, zero client JavaScript
 - Plain CSS design system in `src/styles/global.css`
-- Deploys to **Azure Static Web Apps** (`staticwebapp.config.json`)
+- Deploys to **GitHub Pages** via `.github/workflows/deploy-pages.yml` on every push to `main`
+- Also ready for **Azure Static Web Apps** (`staticwebapp.config.json`)
 
 ## Getting started
 
@@ -20,13 +21,13 @@ Requires Node.js 22.12 or newer.
 
 ```sh
 npm install
-npm run dev      # http://localhost:4321
+npm run dev      # http://localhost:4321/azure-bicep-users-community/
 ```
 
 | Command           | Action                                      |
 | ----------------- | ------------------------------------------- |
 | `npm install`     | Install dependencies                        |
-| `npm run dev`     | Start the local dev server at `localhost:4321` |
+| `npm run dev`     | Start the local dev server at `localhost:4321/azure-bicep-users-community/` |
 | `npm run build`   | Build the production site to `./dist/`      |
 | `npm run preview` | Preview the production build locally        |
 
@@ -49,6 +50,17 @@ npm run dev      # http://localhost:4321
 ├── staticwebapp.config.json # Azure Static Web Apps routing
 ├── PRODUCT.md               # product context
 └── DESIGN.md                # design system record
+```
+
+## Deployment
+
+The site is built for GitHub Pages at `https://johnlokerse.github.io/azure-bicep-users-community/`.
+In the repository settings, set **Pages → Source** to **GitHub Actions**.
+
+For a custom domain or Azure Static Web Apps, build with a root base path:
+
+```sh
+SITE_URL=https://example.com SITE_BASE=/ npm run build
 ```
 
 ## Adding a post

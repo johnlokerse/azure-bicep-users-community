@@ -3,6 +3,8 @@ import Layout from '../layouts/Layout.astro';
 import HexIcon from '../components/HexIcon.astro';
 import { posts, yearGroups, categoryMeta, authorNames, type Post, type PostCategory } from '../data/posts';
 
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
 const linkedinGroupUrl = 'https://www.linkedin.com/groups/13004126/';
 const today = new Date().toISOString().slice(0, 10);
 
@@ -47,7 +49,7 @@ THESIS: The archive drawn as an Azure architecture diagram: each year a resource
   <header class="topbar">
     <div class="topbar-inner">
       <a class="brand" href="#top" aria-label="Azure Bicep Users Community, back to top">
-        <img src="/bicep-hex.png" alt="" width="28" height="32" />
+        <img src={`${base}/bicep-hex.png`} alt="" width="28" height="32" />
         <span>Azure Bicep Users Community</span>
       </a>
       <nav class="year-nav" aria-label="Jump to year">
@@ -80,7 +82,7 @@ THESIS: The archive drawn as an Azure architecture diagram: each year a resource
           </a>
         </div>
       </div>
-      <img class="hero-mark" src="/bicep-hex.png" alt="Azure Bicep logo" width="222" height="254" />
+      <img class="hero-mark" src={`${base}/bicep-hex.png`} alt="Azure Bicep logo" width="222" height="254" />
     </div>
   </div>
 
