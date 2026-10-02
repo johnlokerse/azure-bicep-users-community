@@ -1,11 +1,187 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
+import HexIcon from '../components/HexIcon.astro';
+import { posts, yearGroups, categoryMeta, authorNames, type Post, type PostCategory } from '../data/posts';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const linkedinGroupUrl = 'https://www.linkedin.com/groups/13004126/';
+const today = new Date().toISOString().slice(0, 10);
+
+type Status = 'published' | 'scheduled' | 'pending';
+const statusOf = (post: Post): Status =>
+  post.linkedinUrl ? 'published' : post.date > today ? 'scheduled' : 'pending';
+
+const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const formatDate = (iso: string) => {
+  const [y, m, d] = iso.split('-').map(Number);
+  return `${d} ${months[m - 1]} ${y}`;
+};
+
+const firstPost = [...posts].sort((a, b) => a.date.localeCompare(b.date))[0];
+const since = new Intl.DateTimeFormat('en-GB', { month: 'long', year: 'numeric', timeZone: 'UTC' }).format(
+  new Date(`${firstPost.date}T00:00:00Z`),
+);
+const publishedCount = posts.filter((p) => statusOf(p) === 'published').length;
+const scheduledCount = posts.filter((p) => statusOf(p) === 'scheduled').length;
+
+const stats = [
+  { key: 'reactions', label: 'Reactions', icon: 'M5 7v6.5H2.5V7zM5 7l2.5-4.5c1 0 1.6.7 1.4 1.7L8.5 6h4c.8 0 1.4.7 1.2 1.5l-1 4.5c-.2.9-.9 1.5-1.8 1.5H5' },
+  { key: 'comments', label: 'Comments', icon: 'M2.5 3.5h11v7.5H7l-3 2.5V11H2.5z' },
+  { key: 'reposts', label: 'Reposts', icon: 'M3 6.5V5h9.5M10.5 3l2 2-2 2M13 9.5V11H3.5M5.5 13l-2-2 2-2' },
+] as const;
+
+const legend = (Object.keys(categoryMeta) as PostCategory[]).map((category) => ({
+  category,
+  ...categoryMeta[category],
+  count: posts.filter((p) => p.category === category).length,
+}));
 ---
 
 <Layout>
-	<Welcome />
+  <Fragment set:html={`<!--
+THESIS: The archive drawn as an Azure architecture diagram: each year a resource-group boundary, each post a resource node. Refuses the dark-navy glow dashboard and stat-card hero.
+    OWN-WORLD: Dotted diagram canvas (#f4f7fb), Bicep blues sampled from the logo (#1e75b2, #1b578e), dashed group boundaries, crisp white nodes with hex category glyphs, Segoe UI / Cascadia for data.
+    STORY: Visitors see what the community is, who hosts it, and find any post by year, topic and date in one click to LinkedIn.
+    FIRST VIEWPORT: Sticky bar (logo, year jumps, LinkedIn group). Bicep-blue field: title, one-line purpose, hosts, facts, two actions, logo hex at right. Legend strip below.
+    FORM: Azure architecture diagram, grounded list #4 of 7, staging: boundary-per-year canvas, seed efe5bbb8.
+-->`} />
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="#top" aria-label="Azure Bicep Users Community, back to top">
+        <img src="/bicep-hex.png" alt="" width="28" height="32" />
+        <span>Azure Bicep Users Community</span>
+      </a>
+      <nav class="year-nav" aria-label="Jump to year">
+        <ul>
+          {yearGroups.map((group) => (
+            <li><a href={`#year-${group.year}`}>{group.year}</a></li>
+          ))}
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div class="hero" id="top">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <h1>Azure Bicep Users Community</h1>
+        <p class="hero-lede">
+          Every Bicep Tip, Did You Know, poll and spotlight the community has shared, in one
+          place and newest first.
+        </p>
+        <p class="hero-hosts">Hosted by John Lokerse and Dan Rios, Microsoft MVPs.</p>
+        <p class="hero-facts">
+          <span>{posts.length} posts since {since}</span>
+          <span>{publishedCount} on LinkedIn</span>
+          {scheduledCount > 0 && <span>{scheduledCount} scheduled</span>}
+        </p>
+        <div class="hero-actions">
+          <a class="button button-primary" href={linkedinGroupUrl} target="_blank" rel="noreferrer">
+            Join the group on LinkedIn<span class="visually-hidden"> (opens in a new tab)</span>
+          </a>
+        </div>
+      </div>
+      <img class="hero-mark" src="/bicep-hex.png" alt="Azure Bicep logo" width="222" height="254" />
+    </div>
+  </div>
+
+  <main id="archive" class="canvas" tabindex="-1">
+    <div class="canvas-inner">
+      <section class="legend" aria-labelledby="legend-title">
+        <h2 id="legend-title" class="legend-title">Legend</h2>
+        <ul class="legend-list">
+          {legend.map((item) => (
+            <li class={`legend-item cat-${item.slug}`}>
+              <HexIcon category={item.category} />
+              <span>{item.label}</span>
+              <span class="legend-count">{item.count}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      {yearGroups.map((group) => {
+        const scheduled = group.posts.filter((p) => statusOf(p) === 'scheduled').length;
+        return (
+          <section class="group" id={`year-${group.year}`} aria-labelledby={`year-${group.year}-title`}>
+            <header class="group-label">
+              <h2 id={`year-${group.year}-title`}>{group.year}</h2>
+              <p>
+                {group.posts.length} posts{scheduled > 0 && <> · {scheduled} scheduled</>}
+              </p>
+            </header>
+
+            {group.posts.length > 0 ? (
+              <ol class="nodes">
+                {group.posts.map((post) => {
+                  const status = statusOf(post);
+                  const meta = categoryMeta[post.category];
+                  return (
+                    <li class:list={['node', `cat-${meta.slug}`, `is-${status}`]}>
+                      <article>
+                        <div class="node-top">
+                          <span class="node-cat">
+                            <HexIcon category={post.category} />
+                            {meta.label}
+                          </span>
+                          <time datetime={post.date}>{formatDate(post.date)}</time>
+                        </div>
+                        <h3>
+                          {post.linkedinUrl ? (
+                            <a href={post.linkedinUrl} target="_blank" rel="noreferrer">
+                              {post.title}
+                              <span class="visually-hidden"> on LinkedIn (opens in a new tab)</span>
+                            </a>
+                          ) : (
+                            post.title
+                          )}
+                        </h3>
+                        <div class="node-foot">
+                          <span class="node-author">
+                            {authorNames[post.author]}
+                            {post.linkedinUrl && (
+                              <>
+                                <span class="node-sep" aria-hidden="true">|</span>
+                                <span class="node-link" aria-hidden="true">LinkedIn ↗</span>
+                              </>
+                            )}
+                          </span>
+                          <dl class="node-stats">
+                            {stats.map((stat) => (
+                              <div title={stat.label}>
+                                <dt>
+                                  <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false">
+                                    <path d={stat.icon} fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" />
+                                  </svg>
+                                  <span class="visually-hidden">{stat.label}</span>
+                                </dt>
+                                <dd>{post.engagement ? post.engagement[stat.key] : '–'}</dd>
+                              </div>
+                            ))}
+                          </dl>
+                        </div>
+                      </article>
+                    </li>
+                  );
+                })}
+              </ol>
+            ) : (
+              <p class="group-empty">No posts for {group.year} yet.</p>
+            )}
+          </section>
+        );
+      })}
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <p>
+        <strong>Azure Bicep Users</strong> · hosted by John Lokerse and Dan Rios
+      </p>
+      <ul>
+        <li><a href={linkedinGroupUrl} target="_blank" rel="noreferrer">LinkedIn group ↗</a></li>
+        <li><a href="#top">Back to top</a></li>
+      </ul>
+    </div>
+  </footer>
 </Layout>

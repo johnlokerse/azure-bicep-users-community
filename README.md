@@ -1,46 +1,77 @@
-# Astro Starter Kit: Basics
+# Azure Bicep Users Community
+
+The community overview site for the **Azure Bicep Users Community**, hosted by
+[John Lokerse](https://www.linkedin.com/in/johnlokerse/) and [Dan Rios](https://www.linkedin.com/in/riosengineer/),
+both Microsoft MVPs.
+
+It aggregates every `#BicepTip`, `#BicepDidYouKnow`, poll and community spotlight the group has
+published on LinkedIn, grouped by year (2026, 2025, 2024) and ordered newest first. Each tile links
+straight to the original LinkedIn post.
+
+## Tech stack
+
+- [Astro](https://astro.build) — static output, zero client JavaScript
+- Plain CSS design system in `src/styles/global.css`
+- Deploys to **Azure Static Web Apps** (`staticwebapp.config.json`)
+
+## Getting started
+
+Requires Node.js 22.12 or newer.
 
 ```sh
-npm create astro@latest -- --template basics
+npm install
+npm run dev      # http://localhost:4321
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+| Command           | Action                                      |
+| ----------------- | ------------------------------------------- |
+| `npm install`     | Install dependencies                        |
+| `npm run dev`     | Start the local dev server at `localhost:4321` |
+| `npm run build`   | Build the production site to `./dist/`      |
+| `npm run preview` | Preview the production build locally        |
 
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
+## Project structure
 
 ```text
 /
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
+├── public/                  # favicon and logo assets
+├── src/
+│   ├── components/
+│   │   └── HexIcon.astro    # per-category hexagon glyphs
+│   ├── data/
+│   │   └── posts.ts         # the post catalogue, grouped by year
+│   ├── layouts/
+│   │   └── Layout.astro
+│   ├── pages/
+│   │   └── index.astro
+│   └── styles/
+│       └── global.css
+├── staticwebapp.config.json # Azure Static Web Apps routing
+├── PRODUCT.md               # product context
+└── DESIGN.md                # design system record
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+## Adding a post
 
-## 🧞 Commands
+Add an entry to `src/data/posts.ts`:
 
-All commands are run from the root of the project, from a terminal:
+```ts
+{
+  year: 2026,
+  date: '2026-09-15',
+  author: 'John',
+  category: 'BicepTip',
+  title: 'Bicep MCP Server',
+  source: 'Bicep Tips and Tricks/bicep-mcp-server/post.md',
+  linkedinUrl: 'https://www.linkedin.com/feed/update/urn:li:activity:...',
+  engagement: { reactions: 0, comments: 0, reposts: 0 },
+}
+```
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+`linkedinUrl` and `engagement` are optional. Posts without a `linkedinUrl` render without the
+LinkedIn indicator, and missing engagement figures show as `–`.
 
-## 👀 Want to learn more?
+## License
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Content belongs to the Azure Bicep Users Community. For the community, by
+[@riosengineer](https://github.com/riosengineer) and [@johnlokerse](https://github.com/johnlokerse).
