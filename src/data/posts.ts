@@ -19,9 +19,9 @@ export type Post = {
 // LinkedIn engagement checked on 2026-10-02; omitted comment/repost counts are zero.
 export const posts: Post[] = [
   // 2026
-  { year: 2026, date: '2026-09-29', author: 'John', category: 'BicepTip', title: 'Experimental Visualiser', source: 'Bicep Tips and Tricks/experimental-visualiser/Post.md' },
-  { year: 2026, date: '2026-09-22', author: 'Dan', category: 'BicepDidYouKnow', title: 'validate decorator', source: 'Bicep DidYouKnow/validate-decorator/post.md' },
-  { year: 2026, date: '2026-09-15', author: 'John', category: 'BicepTip', title: 'Bicep MCP Server', source: 'Bicep Tips and Tricks/bicep-mcp-server/post.md' },
+  { year: 2026, date: '2026-09-29', author: 'John', category: 'BicepTip', title: 'Experimental Visualiser', source: 'Bicep Tips and Tricks/experimental-visualiser/Post.md', linkedinUrl: 'https://www.linkedin.com/feed/update/urn:li:activity:7510596271544430592' },
+  { year: 2026, date: '2026-09-22', author: 'Dan', category: 'BicepDidYouKnow', title: 'validate decorator', source: 'Bicep DidYouKnow/validate-decorator/post.md', linkedinUrl: 'https://www.linkedin.com/feed/update/urn:li:activity:7508062188339777538' },
+  { year: 2026, date: '2026-09-15', author: 'John', category: 'BicepTip', title: 'Bicep MCP Server', source: 'Bicep Tips and Tricks/bicep-mcp-server/post.md', linkedinUrl: 'https://www.linkedin.com/feed/update/urn:li:activity:7505520983307575296?utm_source=share' },
 
   // 2025
   { year: 2025, date: '2025-09-23', author: 'John', category: 'BicepDidYouKnow', title: 'bicep-config-file', source: 'bicep-config-file/post.md' },
