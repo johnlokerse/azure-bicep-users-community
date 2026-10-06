@@ -1,0 +1,3 @@
+interface:
+  display_name: "Check Bicep Post Schedule"
+  short_description: "Sync published schedule posts and LinkedIn URLs"
