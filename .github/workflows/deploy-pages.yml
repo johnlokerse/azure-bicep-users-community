@@ -29,7 +29,7 @@ jobs:
 
       - run: npm run build
         env:
-          SITE_URL: https://www.azurebicepcommunity.com
+          SITE_URL: https://azurebicepcommunity.com
           SITE_BASE: /
 
       - uses: actions/upload-pages-artifact@v5
