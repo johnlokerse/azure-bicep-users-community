@@ -16,12 +16,12 @@ export type Post = {
   engagement?: { reactions: number; comments: number; reposts: number };
 };
 
-// LinkedIn engagement checked on 2026-10-14; omitted comment/repost counts are zero.
+// LinkedIn engagement checked on 2026-10-16; omitted comment/repost counts are zero.
 export const posts: Post[] = [
   // 2026
-  { year: 2026, date: '2026-10-13', author: 'John', category: 'BicepDidYouKnow', title: 'Bicep console', source: 'Bicep DidYouKnow/bicepconsole/post.md', linkedinUrl: 'https://www.linkedin.com/feed/update/urn:li:groupPost:13004126-7503442575475974144', engagement: { reactions: 27, comments: 0, reposts: 3 } },
+  { year: 2026, date: '2026-10-13', author: 'John', category: 'BicepDidYouKnow', title: 'Bicep console', source: 'Bicep DidYouKnow/bicepconsole/post.md', linkedinUrl: 'https://www.linkedin.com/feed/update/urn:li:groupPost:13004126-7503442575475974144', engagement: { reactions: 29, comments: 0, reposts: 3 } },
   { year: 2026, date: '2026-10-06', author: 'Dan', category: 'BicepDidYouKnow', title: 'nullIfNotFound', source: 'Bicep DidYouKnow/null-if-not-found/post.md', linkedinUrl: 'https://www.linkedin.com/feed/update/urn:li:activity:7513132414794403842', engagement: { reactions: 32, comments: 0, reposts: 0 } },
-  { year: 2026, date: '2026-09-29', author: 'John', category: 'BicepTip', title: 'Experimental Visualiser', source: 'Bicep Tips and Tricks/experimental-visualiser/Post.md', linkedinUrl: 'https://www.linkedin.com/feed/update/urn:li:activity:7510596271544430592', engagement: { reactions: 26, comments: 0, reposts: 3 } },
+  { year: 2026, date: '2026-09-29', author: 'John', category: 'BicepTip', title: 'Experimental Visualiser', source: 'Bicep Tips and Tricks/experimental-visualiser/Post.md', linkedinUrl: 'https://www.linkedin.com/feed/update/urn:li:activity:7510596271544430592', engagement: { reactions: 27, comments: 0, reposts: 3 } },
   { year: 2026, date: '2026-09-22', author: 'Dan', category: 'BicepDidYouKnow', title: 'validate decorator', source: 'Bicep DidYouKnow/validate-decorator/post.md', linkedinUrl: 'https://www.linkedin.com/feed/update/urn:li:activity:7508062188339777538', engagement: { reactions: 27, comments: 1, reposts: 2 } },
   { year: 2026, date: '2026-09-15', author: 'John', category: 'BicepTip', title: 'Bicep MCP Server', source: 'Bicep Tips and Tricks/bicep-mcp-server/post.md', linkedinUrl: 'https://www.linkedin.com/feed/update/urn:li:activity:7505520983307575296?utm_source=share', engagement: { reactions: 18, comments: 0, reposts: 3 } },
 
@@ -48,7 +48,7 @@ export const posts: Post[] = [
   { year: 2024, date: '2024-12-10', author: 'John', category: 'BicepDidYouKnow', title: 'UDT', source: 'UserDefinedTypes/post.md', linkedinUrl: 'https://www.linkedin.com/feed/update/urn:li:activity:7272158242409955328', engagement: { reactions: 50, comments: 4, reposts: 2 } },
   { year: 2024, date: '2024-12-03', author: 'Dan', category: 'BicepDidYouKnow', title: 'Latest module', source: 'ModuleUpdates/Post.md', linkedinUrl: 'https://www.linkedin.com/feed/update/urn:li:activity:7269621419058053120', engagement: { reactions: 96, comments: 5, reposts: 4 } },
   { year: 2024, date: '2024-11-26', author: 'John', category: 'BicepTip', title: 'Map function', source: 'Map/Post.md', linkedinUrl: 'https://www.linkedin.com/feed/update/urn:li:groupPost:13004126-7265309499844915200', engagement: { reactions: 58, comments: 1, reposts: 2 } },
-  { year: 2024, date: '2024-11-19', author: 'Dan', category: 'BicepPoll', title: 'How Do You Use Azure Bicep Modules?', source: 'Modules/Post.md', linkedinUrl: 'https://www.linkedin.com/feed/update/urn:li:activity:7264548009386897409', engagement: { reactions: 4, comments: 5, reposts: 0 } },
+  { year: 2024, date: '2024-11-19', author: 'Dan', category: 'BicepPoll', title: 'How Do You Use Azure Bicep Modules?', source: 'Modules/Post.md', linkedinUrl: 'https://www.linkedin.com/feed/update/urn:li:activity:7264548009386897409', engagement: { reactions: 5, comments: 5, reposts: 0 } },
   { year: 2024, date: '2024-11-12', author: 'John', category: 'BicepDidYouKnow', title: 'Null check in Azure Bicep', source: 'WaysToNullCheck/Post.md', linkedinUrl: 'https://www.linkedin.com/feed/update/urn:li:activity:7262011239885586435', engagement: { reactions: 69, comments: 3, reposts: 1 } },
   { year: 2024, date: '2024-11-05', author: 'Dan', category: 'ExperimentalSpotlight', title: 'Extendable / Shared Params', source: 'SharedParams/Post.md', linkedinUrl: 'https://www.linkedin.com/feed/update/urn:li:activity:7259474544803930112', engagement: { reactions: 57, comments: 3, reposts: 7 } },
   { year: 2024, date: '2024-10-29', author: 'Dan', category: 'BicepTip', title: 'Conditions', source: 'Conditions/Post.md', linkedinUrl: 'https://www.linkedin.com/feed/update/urn:li:activity:7256937854612733952', engagement: { reactions: 53, comments: 0, reposts: 1 } },
